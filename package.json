@@ -2,6 +2,7 @@
   "name": "driver-location",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "boom": "^7.3.0",
     "fastify": "^1.13.4",
@@ -16,7 +17,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "node-env-run server --exec nodemon",
+    "dev": "run-p server start"
   },
   "eslintConfig": {
     "extends": "react-app"
