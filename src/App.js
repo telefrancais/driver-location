@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import Header from './components/Header';
+import Body from './components/Body';
+
+//import './App.scss';
 
 class App extends Component {
     constructor(props) {
@@ -12,14 +15,14 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.updateLocation();
+        //this.updateLocation();
     }
 
     getLocation = async () => {
         let location = await fetch('/location');
         let json = await location.json();
         this.setState({
-            activeLegID: json.activeLegID, 
+            activeLegID: json.activeLegID,
             legProgress: json.legProgress
         });
     }
@@ -47,7 +50,9 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
+                <Header />
+                <Body />
+                {/* <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
                     <p>
                         {this.state.legProgress}
@@ -60,7 +65,7 @@ class App extends Component {
                     >
                         Learn React
                     </a>
-                </header>
+                </header> */}
             </div>
         );
     }
