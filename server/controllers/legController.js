@@ -20,4 +20,4 @@ exports.getSingleLeg = async (req, res) => {
     } catch (err) {
         throw boom.boomify(err);
     }
-  }
+}

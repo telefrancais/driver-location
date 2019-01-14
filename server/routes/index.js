@@ -20,6 +20,11 @@ const routes = [
     },
     {
         method: 'GET',
+        url: '/stops/:row/:column',
+        handler: stopController.getSingleStop
+    },
+    {
+        method: 'GET',
         url: '/legs',
         handler: legController.getLegs
     },
