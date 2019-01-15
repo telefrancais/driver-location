@@ -1,4 +1,5 @@
 import React from 'react';
+import LineTo from 'react-lineto';
 
 import Square from './Square';
 
@@ -50,26 +51,59 @@ export default class Grid extends React.Component {
             legs: json
         });
     }
+
+    renderLegs = () => {
+        let legsArray = [];
+        this.state.legs.map((leg) => {
+            if(leg.legID < this.state.activeLegID) {
+                legsArray.push(<LineTo 
+                            to={leg.startStop} 
+                            from={leg.endStop} 
+                            borderColor='green' 
+                            borderWidth={2} 
+                            fromAnchor='center center' 
+                            toAnchor='center center' />);
+            } else if (leg.legID > this.state.activeLegID) {
+                legsArray.push(<LineTo 
+                            to={leg.startStop} 
+                            from={leg.endStop} 
+                            borderColor='red' 
+                            borderWidth={2} 
+                            fromAnchor='center center' 
+                            toAnchor='center center' />);
+            } else if (leg.legID === this.state.activeLegID) {
+                legsArray.push(<LineTo 
+                            to={leg.startStop} 
+                            from={leg.endStop} 
+                            borderColor='blue'
+                            borderWidth={2} 
+                            fromAnchor='center center' 
+                            toAnchor='center center' />);
+            }
+        })
+        return legsArray;
+    }
     
     render() {
         return (
             <div className="grid">
                 <div className="grid__container">
-                {sizeArray.map((row) => {
+                    {sizeArray.map((row) => {
                         return <div key={row} className="grid__row">
                         {
                             sizeArray.map((column) => {
                                 const stop = this.state.stops.filter((val) => {
-                                    return val.x == row && val.y == column;
+                                    return val.x === row && val.y === column;
                                 });
                                 if(stop.length > 0) {
-                                    return <Square key={column} stop='true'></Square>
+                                    return <div className={stop[0].name}><Square key={column} stop='true'></Square></div>
                                 }
                                 return <Square key={column} stop='false'></Square>
                             })
                         }
                         </div>
                     })}
+                    { this.renderLegs() } 
                 </div>
             </div>
         )

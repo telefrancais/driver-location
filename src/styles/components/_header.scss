@@ -1,6 +1,5 @@
 .header {
-    background: $light-grey-blue;
-    box-shadow: 0 8px 14px 0 rgba(100, 109, 130, 0.16), 0 0 2px 0 rgba(100, 109, 130, 0.12);
+    background: $steel;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,7 +9,7 @@
     font-family: 'Poppins', 'sans-serif';
     font-size: 34px;
     font-weight: 600;
-    margin-top: 21px;
-    margin-bottom: 23px;
-    color: $battleship-grey;
+    margin-top: 40px;
+    margin-bottom: 44px;
+    color: $midnight;
 }
