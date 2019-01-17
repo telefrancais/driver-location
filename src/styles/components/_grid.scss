@@ -2,11 +2,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: $steel;
 }
 
 .grid__container {
     display: flex;
     flex: 1;
+    margin-left: 3px;
 }
 
 .grid__row {

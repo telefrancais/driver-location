@@ -1,4 +1,17 @@
 .form {
-    width: 30%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
     background: $steel;
+}
+
+.form__box {
+    margin-top: 50px;
+    width: 90%;
+}
+
+.form__text {
+    font-family: 'Poppins', 'sans-serif';
+    font-weight: 400;
 }

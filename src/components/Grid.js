@@ -3,6 +3,9 @@ import LineTo from 'react-lineto';
 
 import Square from './Square';
 
+import socketIOClient from "socket.io-client";
+const socket = socketIOClient('http://localhost:3001');
+
 let sizeArray = Array.from(new Array(200), (item, index) => index + 1);
 
 export default class Grid extends React.Component {
@@ -20,6 +23,16 @@ export default class Grid extends React.Component {
         this.storeLocation();
         this.storeStops();
         this.storeLegs();
+        this.startSocket();
+    }
+
+    startSocket = () => {
+        socket.on('databaseUpdate', (update) => {
+            this.setState({
+                activeLegID: update.activeLegID,
+                legProgress: update.legProgress
+            });
+        });
     }
 
     storeLocation = async () => {
@@ -105,6 +118,8 @@ export default class Grid extends React.Component {
                     })}
                     { this.renderLegs() } 
                 </div>
+                {this.state.activeLegID}
+                {this.state.legProgress}
             </div>
         )
     }
