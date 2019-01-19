@@ -1,5 +1,5 @@
 import React from 'react';
-import LineTo from 'react-lineto';
+import { LineTo, Line } from 'react-lineto';
 
 import Square from './Square';
 
@@ -65,33 +65,64 @@ export default class Grid extends React.Component {
         });
     }
 
+    
+    calculateProgress = (point1, point2) => {
+        let midpointX = point1.x + (point2.x - point1.x) * (this.state.legProgress / 100);
+        let midpointY = point1.y + (point2.y - point1.y) * (this.state.legProgress / 100);
+
+        return {'x': midpointX, 'y': midpointY};
+    }
+
     renderLegs = () => {
         let legsArray = [];
         this.state.legs.map((leg) => {
+            let startStop = this.state.stops.filter((stop) => {
+                return stop.name === leg.startStop;
+            });
+            let endStop = this.state.stops.filter((stop) => {
+                return stop.name === leg.endStop;
+            });
             if(leg.legID < this.state.activeLegID) {
-                legsArray.push(<LineTo 
-                            to={leg.startStop} 
-                            from={leg.endStop} 
-                            borderColor='green' 
-                            borderWidth={2} 
-                            fromAnchor='center center' 
-                            toAnchor='center center' />);
+                legsArray.push(<Line 
+                        x0={startStop[0].x * 7}
+                        y0={120 + startStop[0].y * 7}
+                        x1={endStop[0].x * 7}
+                        y1={120 + endStop[0].y * 7}
+                        borderColor='green'
+                        borderWidth={2}
+                    />
+                );
             } else if (leg.legID > this.state.activeLegID) {
-                legsArray.push(<LineTo 
-                            to={leg.startStop} 
-                            from={leg.endStop} 
-                            borderColor='red' 
-                            borderWidth={2} 
-                            fromAnchor='center center' 
-                            toAnchor='center center' />);
+                legsArray.push(<Line 
+                        x0={startStop[0].x * 7}
+                        y0={120 + startStop[0].y * 7}
+                        x1={endStop[0].x * 7}
+                        y1={120 + endStop[0].y * 7}
+                        borderColor='red'
+                        borderWidth={2}
+                    />
+                );
             } else if (leg.legID === this.state.activeLegID) {
-                legsArray.push(<LineTo 
-                            to={leg.startStop} 
-                            from={leg.endStop} 
-                            borderColor='blue'
-                            borderWidth={2} 
-                            fromAnchor='center center' 
-                            toAnchor='center center' />);
+                let centrePoint = this.calculateProgress(startStop[0], endStop[0]);
+
+                legsArray.push(<Line 
+                        x0={startStop[0].x * 7}
+                        y0={120 + startStop[0].y * 7}
+                        x1={centrePoint.x * 7}
+                        y1={120 + centrePoint.y * 7}
+                        borderColor='green'
+                        borderWidth={2}
+                    />
+                );
+                legsArray.push(<Line 
+                    x0={centrePoint.x * 7}
+                    y0={120 + centrePoint.y * 7}
+                    x1={endStop[0].x * 7}
+                    y1={120 + endStop[0].y * 7}
+                    borderColor='red'
+                    borderWidth={2}
+                />
+            );
             }
         })
         return legsArray;
@@ -118,8 +149,6 @@ export default class Grid extends React.Component {
                     })}
                     { this.renderLegs() } 
                 </div>
-                {this.state.activeLegID}
-                {this.state.legProgress}
             </div>
         )
     }

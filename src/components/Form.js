@@ -69,7 +69,7 @@ export default class Form extends React.Component {
     }
 
     handleSelectChange = (selectedOption) => {
-        let data = {activeLegID: selectedOption.value, legProgress: this.state.legProgress};
+        let data = {...this.state, activeLegID: selectedOption.value};
         socket.emit('updateData', data);
         this.updateDatabase(data);
         this.setState({ 
@@ -78,7 +78,7 @@ export default class Form extends React.Component {
     }
 
     onSliderChange = (value) => {
-        let data = {activeLegID: this.state.activeLegID.value, legProgress: value};
+        let data = {...this.state, legProgress: value};
         socket.emit('updateData', data);
         this.updateDatabase(data);
         this.setState({
@@ -92,11 +92,11 @@ export default class Form extends React.Component {
                 <div className="form__box">
                     <p className="form__text">Driver's Current Leg</p>
                     <Select
-                        //value={this.state.activeLegID}
-                        defaultValue={this.state.activeLegID}
+                        value={this.state.activeLegID}
                         onChange={this.handleSelectChange}
                         options={this.state.legIDs}
                         className="form__select"
+                        placeholder={this.state.activeLegID}
                     />
                 </div>
                 <div className="form__box">
