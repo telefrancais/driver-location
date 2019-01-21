@@ -5,4 +5,4 @@ route in green and the remaining route in red. Progress can be updated using a f
 
 To run the web application, clone or unzip the repository into your directory of choice. In a command prompt window, head to that directory and run 'npm install' to
 install all the dependencies. Use the command 'npm run dev' to run both the server and the browser window at the same time. The browser should open itself, but if it
-doesn't, the app run on 'http://localhost:3000'.
+doesn't, the app runs on 'http://localhost:3000'.
